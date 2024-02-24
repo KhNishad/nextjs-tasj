@@ -8,15 +8,7 @@ const ImageGallery = ({product}) => {
 
   return (
     <div className=" py-7 px-2 xls:py-2 xms:py-2 xs:py-2 col-span-1 sm:col-span-1 shadow-md">
-      <div className="block xls:hidden xms:hidden xs:hidden sm:w-[350px]">
-        <Magnifier
-          src={`${product?.list[0]}`}
-          alt="product 1"
-          width={500}
-        />
-      </div>
-
-      <div className="hidden xls:flex xms:flex xs:flex justify-center">
+      <div className="xls:flex xms:flex xs:flex justify-center">
         <Image
           height={400}
           width={400}
