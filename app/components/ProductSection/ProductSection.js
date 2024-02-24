@@ -40,7 +40,6 @@ const ProductSection = ({ results, totalData }) => {
     setPageSize(size);
   };
 
-  console.log("results....",pageSize);
 
   return (
     <>

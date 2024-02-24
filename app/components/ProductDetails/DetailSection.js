@@ -1,29 +1,40 @@
 "use client";
+import react, { useState, useEffect } from "react";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
-import { destroyCookie, setCookie } from "nookies";
-import { useEffect, useState } from "react";
+import CountdownTimer from "../countDown";
 
 const DetailSection = ({ product }) => {
-  const [activeVariation, setActiveVariation] = useState(0);
+  const [diffTimes, setDiffTimes] = useState();
 
+  const [currentDate, setCurrentDate] = useState(Date.now());
   const [count, setCount] = useState(1);
 
-  const handleVariation = (index) => {
-    setActiveVariation(index);
-  };
+  useEffect(() => {
+    if (currentDate <= new Date(product?.campaign?.endDate).getTime()) {
+      let endTime = new Date(product?.campaign?.endDate).getTime();
+      let diffTime = endTime - currentDate;
 
-  const variations = [11, 12, 13];
+      setDiffTimes(diffTime);
+    }
+  }, [product]);
+  console.log(".............dis", product?.campaign?.endDate);
+
 
   return (
     <div className="dark:text-black px-3 mt-3">
       <div>
+        <div className="xls:hidden xms:hidden xs:hidden sm:block md:block lg:block xl:block xxl:block">
+          <CountdownTimer countdown={diffTimes} />
+        </div>
         <p className="font-semibold text-xl dark:text-black">
           {product?.product?.shippableProduct?.title}
         </p>
         <p className=" text-sm dark:text-black py-2">
-          Brand: {product?.product?.shippableProduct?.brandName}
+          Brand:{" "}
+          <span className="font-semibold">
+            {product?.product?.shippableProduct?.brandName}
+          </span>
         </p>
         <p className=" text-sm dark:text-black py-0">
           Category: {product?.product?.shippableProduct?.category} /{" "}
@@ -32,22 +43,17 @@ const DetailSection = ({ product }) => {
           {product?.product?.shippableProduct?.subcategory3}
         </p>
 
-
         <div className="mt-5">
           <h2 className="font-semibold text-lg">
-            Price:{" "}
-            {/* <span className="line-through text-sm">
-                TK. 200
-              </span> */}
-            <span>TK. {product?.product?.shippableProduct?.price}</span>
+            Price: <span>TK. {product?.product?.shippableProduct?.price}</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 items-center mt-5">
+        <div className="grid grid-cols-4 gap-1 items-center mt-5">
           <p className="font-semibold">Quantity: </p>
           <div className="w-[200px] flex items-center">
             <div
-              className="border px-3 py-2 cursor-pointer bg-green-500 border-green-500"
+              className="border px-3 py-2 cursor-pointer bg-green-500 border-green-500 rounded-sm"
               onClick={() => setCount(count > 1 ? count - 1 : 1)}
             >
               <FontAwesomeIcon
@@ -60,7 +66,7 @@ const DetailSection = ({ product }) => {
             <input
               type="text"
               value={count}
-              className="border-[1px] w-[100px] h-[42px] p-[1px] border-green-500 text-center dark:bg-white"
+              className="border-[1px] w-[80px] h-[42px] p-[1px] border-green-500 text-center dark:bg-white"
               readOnly
             />
 
@@ -80,21 +86,37 @@ const DetailSection = ({ product }) => {
 
         <div className="mt-3">
           <p className="text-black">
+            <span className="text-gray-400">Stocks : </span>{" "}
             <span className="font-semibold pr-1">{product?.inStock}</span>{" "}
-            <span className="text-gray-400">Products Available</span>{" "}
           </p>
         </div>
         <div className="mt-1">
           <p className="text-black">
-            <span className="font-semibold pr-1">Warranty</span>{" "}
-            <span className="text-gray-400">
+            <span className="pr-1 text-gray-400">Warranty : </span>{" "}
+            <span className="font-semibold">
               {product?.product?.shippableProduct?.warranty}
+            </span>{" "}
+          </p>
+        </div>
+        <div className="mt-1">
+          <p className="text-black">
+            <span className=" pr-1 text-gray-400">Seller : </span>{" "}
+            <span className="capitalize font-semibold">
+              {product?.product?.seller?.name}
+            </span>{" "}
+          </p>
+        </div>
+        <div className="mt-1">
+          <p className="text-black">
+            <span className=" pr-1 text-gray-400">Manufactured By : </span>{" "}
+            <span className="capitalize font-semibold">
+              {product?.product?.shippableProduct?.manufacturerCountry}
             </span>{" "}
           </p>
         </div>
         <div className="mt-6">
           <div className="flex space-x-5">
-            <button className="px-7 py-2 bg-gray-800 text-white rounded-md font-semibold tracking-wide text-sm">
+            <button className="px-7 py-2 bg-gray-800  text-white rounded-md font-semibold tracking-wide text-sm">
               Add to cart
             </button>
 
