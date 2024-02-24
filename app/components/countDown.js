@@ -4,49 +4,47 @@ import { useEffect, useState } from "react";
 export default function CountdownTimer({ countdown }) {
   
 
-  const [remainingTime, setRemainingTime] = useState();
+  const calculateTimeLeft = () => {
+    const difference = +new Date('2024-02-26T15:21:19.586Z') - +new Date();
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
-    if (countdown) {
-      setRemainingTime(countdown);
-    }
-  }, [countdown]);
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
-  let newRemainTime = remainingTime / 1000;
-
-  let day = Math.floor(newRemainTime / (24 * 60 * 60));
-  let dayFraction = Math.floor(newRemainTime % (24 * 60 * 60));
-
-  let hours = Math.floor(dayFraction / (60 * 60));
-  let hoursFraction = Math.floor(dayFraction % (60 * 60));
-  let minutes = Math.floor(hoursFraction / 60);
-  let minutesFrac = Math.floor(hoursFraction % 60);
-
-  let seconds = Math.floor(minutesFrac);
-
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="flex space-x-3 xs:space-x-1 items-center">
-      <p className="text-sm pl-6 xms:pl-3 xs:pl-2 text-black xs:text-xs">
-        {" "}
-        Ending in{" "}
+      <p className=" font-semibold text-[20px] py-3 xms:pl-3 xs:pl-2 text-black xs:text-xs">
+       {countdown?.name} Ends In : 
       </p>
       <div className="flex space-x-2 xms:space-x-1 xs:space-x-0 items-center">
         <p className="bg-red-500 px-2 py-1 text-white text-sm font-semibold">
-          {day.toString().padStart(2, "0")}d
+          {timeLeft?.days}d
         </p>
         <p className="text-black">:</p>
         <p className="bg-red-500 px-2 py-1 text-white text-sm font-semibold">
-          {hours.toString().padStart(2, "0")}h
+          {timeLeft?.hours}h
         </p>
 
         <p className="text-black">:</p>
         <p className="bg-red-500 px-2 py-1 text-white text-sm font-semibold">
-          {minutes.toString().padStart(2, "0")}m
+          {timeLeft?.minutes}m
         </p>
         <p className="text-black">:</p>
         <p className="bg-red-500 px-2 py-1 text-white text-sm font-semibold">
-          {seconds.toString().padStart(2, "0")}s
+          {timeLeft?.seconds}s
         </p>
       </div>
     </div>

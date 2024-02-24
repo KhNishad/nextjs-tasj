@@ -27,14 +27,14 @@ const ImageGallery = ({product}) => {
       </div>
 
       <div className="grid grid-cols-5 xs:grid-cols-4 gap-2 md:gap-x-2 sm:gap-x-2 xms:gap-x-2 xs:gap-x-2 mt-2">
-        { product?.list.map((item,index)=>
+        {product?.list.map((item,index)=>
         <div key={index} className="cursor-pointer">
           <Image
             src={`${item}`}
             width={90}
             height={90}
             alt="product 1"
-            className="border-[1px] border-gray-800 h-16 w-16"
+            className="border-[1px] border-gray-400 h-16 w-16 rounded-md"
           />
         </div>
         )}

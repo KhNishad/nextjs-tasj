@@ -24,7 +24,7 @@ const Header = () => {
         <div className="flex items-center justify-between sm:hidden xls:hidden xms:hidden xs:hidden ">
           <Link href={`/`}>
             <div className="flex justify-center lg:w-auto lg:flex-1">
-              <p className="text-2xl font-semibold text-primary">Demo</p>
+              <p className="text-2xl font-semibold text-primary">Task Test</p>
             </div>
           </Link>
           <div>

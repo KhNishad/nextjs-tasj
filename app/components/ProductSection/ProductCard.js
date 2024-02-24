@@ -26,7 +26,7 @@ const ProductCard = ({ item }) => {
           />
         </div>
         <div className="pt-3">
-          <p className="text-xs font-semibold text-black text-center hover:underline cursor-pointer pb-3 h-[25px]">
+          <p className="text-xs pl-3 font-semibold text-black text-left hover:underline cursor-pointer pb-3 h-[25px]">
             {item?.title}
           </p>
 
@@ -35,8 +35,6 @@ const ProductCard = ({ item }) => {
               <p className="text-[14px] font-semibold text-green-700 text-center">
                 TK. {Number(item?.price).toFixed(2)}
               </p>
-
-            
             </div>
 
             <div className="group h-7 w-7 relative cursor-pointer rounded-full  group-hover:border border-black flex justify-center items-center hover:bg-black ">

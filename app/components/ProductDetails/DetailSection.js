@@ -5,28 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CountdownTimer from "../countDown";
 
 const DetailSection = ({ product }) => {
-  const [diffTimes, setDiffTimes] = useState();
 
-  const [currentDate, setCurrentDate] = useState(Date.now());
   const [count, setCount] = useState(1);
 
-  useEffect(() => {
-    if (currentDate <= new Date(product?.campaign?.endDate).getTime()) {
-      let endTime = new Date(product?.campaign?.endDate).getTime();
-      let diffTime = endTime - currentDate;
-
-      setDiffTimes(diffTime);
-    }
-  }, [product]);
-  console.log(".............dis", product?.campaign?.endDate);
 
 
   return (
     <div className="dark:text-black px-3 mt-3">
       <div>
+        {product?.campaign?.name?
         <div className="xls:hidden xms:hidden xs:hidden sm:block md:block lg:block xl:block xxl:block">
-          <CountdownTimer countdown={diffTimes} />
-        </div>
+          <CountdownTimer countdown={product?.campaign} />
+        </div>:null}
         <p className="font-semibold text-xl dark:text-black">
           {product?.product?.shippableProduct?.title}
         </p>
@@ -84,9 +74,9 @@ const DetailSection = ({ product }) => {
           </div>
         </div>
 
-        <div className="mt-3">
+        <div className="mt-5">
           <p className="text-black">
-            <span className="text-gray-400">Stocks : </span>{" "}
+            <span className="text-gray-400">Stocks Available : </span>{" "}
             <span className="font-semibold pr-1">{product?.inStock}</span>{" "}
           </p>
         </div>
@@ -116,11 +106,11 @@ const DetailSection = ({ product }) => {
         </div>
         <div className="mt-6">
           <div className="flex space-x-5">
-            <button className="px-7 py-2 bg-gray-800  text-white rounded-md font-semibold tracking-wide text-sm">
+            <button className="w-[50%] px-7 py-2 bg-gray-800  text-white rounded-md font-semibold tracking-wide text-sm">
               Add to cart
             </button>
 
-            <button className="px-7 py-2 bg-green-500 text-white rounded-md font-semibold tracking-wide text-sm">
+            <button className="w-[50%] px-7 py-2 bg-green-500 text-white rounded-md font-semibold tracking-wide text-sm">
               Buy now
             </button>
           </div>
