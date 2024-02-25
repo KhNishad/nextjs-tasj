@@ -48,7 +48,6 @@ const ProductSection = ({ results, totalData }) => {
           <div
             key={index}
             className="overflow-hidden items-center justify-center h-full cardFull"
-            // href={`/product/${item?.id}`}
             index={index}
             onClick={() => router.push(`/product/${item?.id}`)}
           >
@@ -63,9 +62,6 @@ const ProductSection = ({ results, totalData }) => {
           total={totalData}
           onChange={(page,pageSize) => handlePageChange(page,pageSize)}
           pageSize={pageSize}
-          // onShowSizeChange={(e,b)=>{
-          //   console.log('cahnges',b);
-          // }}
         />
       </div>
     </>
